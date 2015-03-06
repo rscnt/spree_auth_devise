@@ -3,7 +3,7 @@ module Spree
     def reset_password_instructions(user, token, *args)
       @edit_password_reset_url = spree.edit_spree_user_password_url(:reset_password_token => token, :host => Spree::Store.current.url)
       content = UserMailer.reset_password_instructions().html_part.body
-      reset_password_instructions(user, token, content)
+      resetpassword_instructions(user, token, content)
     end
 
     def confirmation_instructions(user, token, opts={})
