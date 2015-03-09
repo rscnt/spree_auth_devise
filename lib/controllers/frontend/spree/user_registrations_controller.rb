@@ -1,10 +1,11 @@
 class Spree::UserRegistrationsController < Devise::RegistrationsController
   helper 'spree/base'
-
+  require_dependency 'spree/core/controller_helpers/mandrill_mailer'
   include Spree::Core::ControllerHelpers::Auth
   include Spree::Core::ControllerHelpers::Common
   include Spree::Core::ControllerHelpers::Order
   include Spree::Core::ControllerHelpers::Store
+  include Spree::Core::ControllerHelpers::MandrillMailer
 
   before_filter :check_permissions, :only => [:edit, :update]
   skip_before_filter :require_no_authentication
@@ -23,6 +24,7 @@ class Spree::UserRegistrationsController < Devise::RegistrationsController
       sign_in(:spree_user, @user)
       session[:spree_user_signup] = true
       associate_user
+      welcome_email @user
       respond_with resource, location: after_sign_up_path_for(resource)
     else
       clean_up_passwords(resource)
