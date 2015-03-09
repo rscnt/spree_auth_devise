@@ -16,7 +16,7 @@ class Spree::Admin::UserSessionsController < Devise::SessionsController
       respond_to do |format|
         format.html {
           flash[:success] = Spree.t(:logged_in_succesfully)
-          redirect_back_or_default(admin_path(spree_current_user))
+          redirect_back_or_default(after_sign_in_path_for(spree_current_user))
         }
         format.js {
           user = resource.record
