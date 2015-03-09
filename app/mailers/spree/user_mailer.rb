@@ -16,7 +16,6 @@ module Spree
 
     def welcome_message 
       @store = Spree::Store.current.name
-      binding.pry
       mail()
     end
   end
