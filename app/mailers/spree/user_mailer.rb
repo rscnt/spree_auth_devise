@@ -13,5 +13,10 @@ module Spree
       
       confirmationinstructions(user, token, content)
     end
+
+    def welcome_message 
+      @store = Spree::Store.current.name
+      mail()
+    end
   end
 end
