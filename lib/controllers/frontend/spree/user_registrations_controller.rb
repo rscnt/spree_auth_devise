@@ -24,7 +24,9 @@ class Spree::UserRegistrationsController < Devise::RegistrationsController
       sign_in(:spree_user, @user)
       session[:spree_user_signup] = true
       associate_user
-      welcome_email @user
+      unless Spree::Store.current.store_key.nil?
+        welcome_email @user
+      end
       respond_with resource, location: after_sign_up_path_for(resource)
     else
       clean_up_passwords(resource)
